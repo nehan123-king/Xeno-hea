@@ -1,41 +1,25 @@
--- [[ NAH HUB: SOLARA LITE LOADER ]] --
-repeat task.wait() until game:IsLoaded()
-
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-
--- Check for Rivals ID
-local script_id = "3bb7969a9ecb9e317b0a24681327c2e2" 
-
-if tostring(game.GameId) ~= "6035872082" then
-    print("Not in Rivals. Running general check...")
+-- [[ NAH HUB: SOLARA COMPATIBLE ]] --
+if not game:IsLoaded() then
+    game.Loaded:Wait()
 end
 
--- [[ THE OVERLAY (Fixes Invisible Menu) ]] --
+local script_id = "3bb7969a9ecb9e317b0a24681327c2e2" -- RIVALS ID
+
+-- Force UI Visibility for Solara
 task.spawn(function()
-    while task.wait(2) do
-        local target = gethui and gethui() or game:GetService("CoreGui")
-        for _, gui in pairs(target:GetChildren()) do
-            -- This finds the Solix menu and FORCES it to be visible
-            if gui:IsA("ScreenGui") and (gui.Name:find("Solix") or gui.Name:find("Hub")) then
-                gui.Enabled = true
-                gui.Name = "nah hub"
-                for _, obj in pairs(gui:GetDescendants()) do
-                    if obj:IsA("Frame") then
-                        obj.BackgroundTransparency = 0 -- Makes the menu solid so you can see it
-                    end
-                    if obj:IsA("TextLabel") and obj.Text:find("Solix") then
-                        obj.Text = "nah hub"
-                        obj.TextColor3 = Color3.fromRGB(255, 110, 170)
-                    end
-                end
+    while task.wait(3) do
+        local CoreGui = game:GetService("CoreGui")
+        local target = gethui and gethui() or CoreGui
+        for _, v in pairs(target:GetChildren()) do
+            if v:IsA("ScreenGui") and (v.Name:find("Solix") or v.Name:find("Hub")) then
+                v.Enabled = true
+                v.Name = "nah hub"
             end
         end
     end
 end)
 
--- [[ BYPASS LOAD ]] --
-print("Loading nah hub for Solara...")
+print("Attempting to load nah hub...")
 local api = loadstring(game:HttpGet("https://sdkapi-public.luarmor.net/library.lua"))()
 api.script_id = script_id
 api.load_script()

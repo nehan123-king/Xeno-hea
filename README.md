@@ -1,25 +1,10 @@
--- [[ NAH HUB: SOLARA FIXED ]] --
+-- [[ NAH HUB: SOLARA VERSION ]] --
 repeat task.wait() until game:IsLoaded()
 
-print("Checking for Rivals...")
+print("--- Link Success: Loading nah hub ---")
 
--- Rivals ID
-local script_id = "3bb7969a9ecb9e317b0a24681327c2e2"
+local sid = "3bb7969a9ecb9e317b0a24681327c2e2" -- Rivals ID
 
--- Loader
 local api = loadstring(game:HttpGet("https://sdkapi-public.luarmor.net/library.lua"))()
-api.script_id = script_id
+api.script_id = sid
 api.load_script()
-
--- Force UI Visibility
-task.spawn(function()
-    while task.wait(5) do
-        local ui = gethui and gethui() or game:GetService("CoreGui")
-        for _, v in pairs(ui:GetChildren()) do
-            if v:IsA("ScreenGui") and (v.Name:find("Solix") or v.Name:find("Hub")) then
-                v.Enabled = true
-                v.Name = "nah hub"
-            end
-        end
-    end
-end)

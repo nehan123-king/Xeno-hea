@@ -1,4 +1,4 @@
--- [[ NAH HUB FIXED: SPACING & RIVALS SUPPORT ]] --
+-- [[ NAH HUB FIXED: RIVALS & SOLARA SUPPORT ]] --
 repeat task.wait() until game:IsLoaded()
 
 local Players = game:GetService("Players")
@@ -21,11 +21,11 @@ local game_id = tostring(game.GameId)
 local game_config = GameList[game_id]
 
 if not game_config then
-    LocalPlayer:Kick("nah hub: Game not supported.")
+    LocalPlayer:Kick("nah hub: This game is not supported.")
     return
 end
 
--- [[ THE NAH HUB RESKINNER ]] --
+-- [[ BRANDING OVERLAY ]] --
 task.spawn(function()
     while task.wait(1) do
         local targetGui = gethui and gethui() or game:GetService("CoreGui")
@@ -48,7 +48,7 @@ task.spawn(function()
     end
 end)
 
--- [[ LUARMOR LOAD ]] --
+-- [[ LOAD SCRIPT ]] --
 local luarmor_api = loadstring(game:HttpGet("https://sdkapi-public.luarmor.net/library.lua"))()
 luarmor_api.script_id = game_config.id
 luarmor_api.load_script()
